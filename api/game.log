@@ -1,0 +1,392 @@
+[06-Feb-2025 19:45:52 Europe/Berlin] 
+=== Processing FEN ===
+[06-Feb-2025 19:45:52 Europe/Berlin] Input: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+[06-Feb-2025 19:45:52 Europe/Berlin] 
+=== Board State ===
+[06-Feb-2025 19:45:52 Europe/Berlin] Row 0: Br Bn Bb Bq Bk Bb Bn Br
+Row 1: Bp Bp Bp Bp Bp Bp Bp Bp
+Row 2: - - - - - - - -
+Row 3: - - - - - - - -
+Row 4: - - - - - - - -
+Row 5: - - - - - - - -
+Row 6: Wp Wp Wp Wp Wp Wp Wp Wp
+Row 7: Wr Wn Wb Wq Wk Wb Wn Wr
+
+[06-Feb-2025 19:45:52 Europe/Berlin] Making request to: https://api.openai.com/v1/chat/completions
+[06-Feb-2025 19:45:52 Europe/Berlin] Request to openai API:
+[06-Feb-2025 19:45:52 Europe/Berlin] Payload: {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are playing as WHITE. Your pieces are UPPERCASE (RNBQKBNRPPPPPPPP) and start at BOTTOM (rows 6-7). CRITICAL RULES FOR MOVE SELECTION:1) You can ONLY move WHITE pieces (UPPERCASE in FEN)2) White pieces are in rows 6-7 at start:   - Row 7: RNBQKBNR (back row)   - Row 6: PPPPPPPP (pawns)3) NEVER try to move black pieces (lowercase in FEN)4) Check the current FEN - only move pieces that exist in their current positions5) PIECE MOVEMENT RULES:   - PAWNS (P):     * White pawns can ONLY move UPWARD (decreasing row numbers)     * From row 6, can move one or two squares up     * After first move, can only move one square up     * Can only move diagonally up when capturing     * Can NEVER move backwards (increasing row numbers)   - KNIGHTS (N):     * Move in L-shape: 2 squares in one direction, then 1 square perpendicular     * Can jump over other pieces   - BISHOPS (B):     * Move any number of squares diagonally     * Cannot jump over other pieces   - ROOKS (R):     * Move any number of squares horizontally or vertically     * Cannot jump over other pieces   - QUEEN (Q):     * Move any number of squares in any direction (diagonal, horizontal, vertical)     * Cannot jump over other pieces - MUST have a clear path with no pieces between start and end position     * If a piece blocks the path, you CANNOT move through or over it   - KING (K):     * Move one square in any direction6) Must use standard chess notation format (e.g., 'e2e4', 'g1f3') for moves7) CRITICAL: Response must be ONLY a JSON object with NO additional text before or after8) Double-check your selected piece is WHITE before responding9) IMPORTANT: Your explanation must match the actual piece you're moving"
+        },
+        {
+            "role": "user",
+            "content": "You are a chess player playing as white. Given the current game state in FEN notation, board visualization, and move history,\r\ndetermine your next move. You MUST move a white piece that exists on the current board.\r\n\r\nCURRENT BOARD STATE (- means empty square):\r\nRow 0: Br Bn Bb Bq Bk Bb Bn Br \nRow 1: Bp Bp Bp Bp Bp Bp Bp Bp \nRow 2: - - - - - - - - \nRow 3: - - - - - - - - \nRow 4: - - - - - - - - \nRow 5: - - - - - - - - \nRow 6: Wp Wp Wp Wp Wp Wp Wp Wp \nRow 7: Wr Wn Wb Wq Wk Wb Wn Wr \n\nIMPORTANT:\r\n1. Look at the board visualization above - you can ONLY move pieces that actually exist on the board\r\n2. Before choosing a move, verify there is a piece at your chosen starting position (not a -)\r\n3. Review the move history to understand how the game reached this state\r\n4. CRITICAL - Before making a move:\r\n   a) First look at the FEN string and identify what piece type is actually at your chosen starting position\r\n   b) Double-check this piece type matches your intended move (e.g., if you find a bishop, don't try to move it like a knight)\r\n   c) Verify your move follows the movement rules for that specific piece type\r\n   d) Make sure your explanation uses standard chess notation (e.g., 'Moving pawn from e2 to e4')\r\n5. Remember piece movement rules:\r\n   - PAWNS: Can only move forward (up for white, down for black), never backwards\r\n   - KNIGHTS: Move in L-shape (2 squares + 1 perpendicular)\r\n   - BISHOPS: Move diagonally only\r\n   - ROOKS: Move horizontally\/vertically only\r\n   - QUEEN: Move in any direction\r\n   - KING: Move one square in any direction\r\n6. CRITICAL: Your response must be ONLY a JSON object with NO additional text before or after, containing:\r\n    - move: string in standard chess notation (e.g., 'e2e4', 'g1f3')\r\n    - explanation: brief explanation using chess notation (e.g., 'Moving piece from e2 to e4 for this reason')\r\n    DO NOT add any text outside the JSON object. The entire response must be valid JSON.\r\n\r\nExample response format:\r\n{\"move\":\"e2e4\",\"explanation\":\"Moving piece from x to y for this reason\"}\r\n\r\nCurrent position (FEN): rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq - 0 1\r\n\r\nMove history (most recent first):\r\n\n\nProvide your next move in standard chess notation (e.g., 'e2e4'):"
+        }
+    ],
+    "temperature": 0,
+    "max_tokens": 2000
+}
+[06-Feb-2025 19:45:53 Europe/Berlin] Raw API Response: {
+    "id": "chatcmpl-Ay1AlsBKGA0Vy4hb1VLgBaAF746mz",
+    "object": "chat.completion",
+    "created": 1738867551,
+    "model": "gpt-3.5-turbo-0125",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\"move\":\"d2d4\",\"explanation\":\"Moving pawn from d2 to d4 to control the center and open up lines for the queen and bishop\"}",
+                "refusal": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1095,
+        "completion_tokens": 34,
+        "total_tokens": 1129,
+        "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+        }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+}
+[06-Feb-2025 19:45:53 Europe/Berlin] AI Response - Raw Content: {"move":"d2d4","explanation":"Moving pawn from d2 to d4 to control the center and open up lines for the queen and bishop"}
+[06-Feb-2025 19:45:53 Europe/Berlin] Current FEN: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+[06-Feb-2025 19:45:53 Europe/Berlin] Model Used: gpt-3.5-turbo
+[06-Feb-2025 19:45:53 Europe/Berlin] AI Move - From: (6,3) To: (4,3)
+[06-Feb-2025 19:45:53 Europe/Berlin] 
+=== Processing FEN ===
+[06-Feb-2025 19:45:53 Europe/Berlin] Input: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+[06-Feb-2025 19:45:53 Europe/Berlin] 
+=== Board State ===
+[06-Feb-2025 19:45:53 Europe/Berlin] Row 0: Br Bn Bb Bq Bk Bb Bn Br
+Row 1: Bp Bp Bp Bp Bp Bp Bp Bp
+Row 2: - - - - - - - -
+Row 3: - - - - - - - -
+Row 4: - - - - - - - -
+Row 5: - - - - - - - -
+Row 6: Wp Wp Wp Wp Wp Wp Wp Wp
+Row 7: Wr Wn Wb Wq Wk Wb Wn Wr
+
+[06-Feb-2025 19:45:53 Europe/Berlin] Coordinates before validation: {"fromRow":6,"fromCol":3,"toRow":4,"toCol":3}
+[06-Feb-2025 19:45:53 Europe/Berlin] Game state before validation: {"board":[[{"type":"r","color":"black"},{"type":"n","color":"black"},{"type":"b","color":"black"},{"type":"q","color":"black"},{"type":"k","color":"black"},{"type":"b","color":"black"},{"type":"n","color":"black"},{"type":"r","color":"black"}],[{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"}],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"}],[{"type":"r","color":"white"},{"type":"n","color":"white"},{"type":"b","color":"white"},{"type":"q","color":"white"},{"type":"k","color":"white"},{"type":"b","color":"white"},{"type":"n","color":"white"},{"type":"r","color":"white"}]],"turn":"white"}
+[06-Feb-2025 19:45:53 Europe/Berlin] 
+=== Move Validation
+[06-Feb-2025 19:45:53 Europe/Berlin] 📝 From: (6,3) To: (4,3) [white's turn]
+[06-Feb-2025 19:45:53 Europe/Berlin] 📝 Found white p
+[06-Feb-2025 19:45:53 Europe/Berlin] Pawn move validation:
+[06-Feb-2025 19:45:53 Europe/Berlin] Color: white, Direction: -1
+[06-Feb-2025 19:45:53 Europe/Berlin] From: (6,3), To: (4,3)
+[06-Feb-2025 19:45:53 Europe/Berlin] Start row: 6
+[06-Feb-2025 19:45:53 Europe/Berlin] Expected destination for two-square move: 4
+[06-Feb-2025 19:45:53 Europe/Berlin] Valid two square forward move from start
+[06-Feb-2025 19:45:54 Europe/Berlin] 
+=== Processing FEN ===
+[06-Feb-2025 19:45:54 Europe/Berlin] Input: rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d6 0 1
+[06-Feb-2025 19:45:54 Europe/Berlin] 
+=== Board State ===
+[06-Feb-2025 19:45:54 Europe/Berlin] Row 0: Br Bn Bb Bq Bk Bb Bn Br
+Row 1: Bp Bp Bp Bp Bp Bp Bp Bp
+Row 2: - - - - - - - -
+Row 3: - - - - - - - -
+Row 4: - - - Wp - - - -
+Row 5: - - - - - - - -
+Row 6: Wp Wp Wp - Wp Wp Wp Wp
+Row 7: Wr Wn Wb Wq Wk Wb Wn Wr
+
+[06-Feb-2025 19:45:54 Europe/Berlin] Making request to: https://api.openai.com/v1/chat/completions
+[06-Feb-2025 19:45:54 Europe/Berlin] Request to openai API:
+[06-Feb-2025 19:45:54 Europe/Berlin] Payload: {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are playing as BLACK. Your pieces are lowercase (rnbqkbnrpppppppp) and start at TOP (rows 0-1). CRITICAL RULES FOR MOVE SELECTION:1) You can ONLY move BLACK pieces (lowercase in FEN)2) Black pieces are in rows 0-1 at start:   - Row 0: rnbqkbnr (back row)   - Row 1: pppppppp (pawns)3) NEVER try to move white pieces (UPPERCASE in FEN)4) Check the current FEN - only move pieces that exist in their current positions5) PIECE MOVEMENT RULES:   - PAWNS (p):     * Black pawns can ONLY move DOWNWARD (increasing row numbers)     * From row 1, can move one or two squares down     * After first move, can only move one square down     * Can only move diagonally down when capturing     * Can NEVER move backwards (decreasing row numbers)   - KNIGHTS (n):     * Move in L-shape: 2 squares in one direction, then 1 square perpendicular     * Can jump over other pieces   - BISHOPS (b):     * Move any number of squares diagonally     * Cannot jump over other pieces   - ROOKS (r):     * Move any number of squares horizontally or vertically     * Cannot jump over other pieces   - QUEEN (q):     * Move any number of squares in any direction (diagonal, horizontal, vertical)     * Cannot jump over other pieces   - KING (k):     * Move one square in any direction6) Must use standard chess notation format (e.g., 'e2e4', 'g1f3') for moves7) CRITICAL: Response must be ONLY a JSON object with NO additional text before or after8) Double-check your selected piece is BLACK before responding9) IMPORTANT: Your explanation must use standard chess notation (e.g., 'Moving pawn from e2 to e4')"
+        },
+        {
+            "role": "user",
+            "content": "You are a chess player playing as black. Given the current game state in FEN notation, board visualization, and move history,\r\ndetermine your next move. You MUST move a black piece that exists on the current board.\r\n\r\nCURRENT BOARD STATE (- means empty square):\r\nRow 0: Br Bn Bb Bq Bk Bb Bn Br \nRow 1: Bp Bp Bp Bp Bp Bp Bp Bp \nRow 2: - - - - - - - - \nRow 3: - - - - - - - - \nRow 4: - - - Wp - - - - \nRow 5: - - - - - - - - \nRow 6: Wp Wp Wp - Wp Wp Wp Wp \nRow 7: Wr Wn Wb Wq Wk Wb Wn Wr \n\nIMPORTANT:\r\n1. Look at the board visualization above - you can ONLY move pieces that actually exist on the board\r\n2. Before choosing a move, verify there is a piece at your chosen starting position (not a -)\r\n3. Review the move history to understand how the game reached this state\r\n4. CRITICAL - Before making a move:\r\n   a) First look at the FEN string and identify what piece type is actually at your chosen starting position\r\n   b) Double-check this piece type matches your intended move (e.g., if you find a bishop, don't try to move it like a knight)\r\n   c) Verify your move follows the movement rules for that specific piece type\r\n   d) Make sure your explanation uses standard chess notation (e.g., 'Moving pawn from e2 to e4')\r\n5. Remember piece movement rules:\r\n   - PAWNS: Can only move forward (up for white, down for black), never backwards\r\n   - KNIGHTS: Move in L-shape (2 squares + 1 perpendicular)\r\n   - BISHOPS: Move diagonally only\r\n   - ROOKS: Move horizontally\/vertically only\r\n   - QUEEN: Move in any direction\r\n   - KING: Move one square in any direction\r\n6. CRITICAL: Your response must be ONLY a JSON object with NO additional text before or after, containing:\r\n    - move: string in standard chess notation (e.g., 'e2e4', 'g1f3')\r\n    - explanation: brief explanation using chess notation (e.g., 'Moving piece from e2 to e4 for this reason')\r\n    DO NOT add any text outside the JSON object. The entire response must be valid JSON.\r\n\r\nExample response format:\r\n{\"move\":\"e2e4\",\"explanation\":\"Moving piece from x to y for this reason\"}\r\n\r\nCurrent position (FEN): rnbqkbnr\/pppppppp\/8\/8\/3P4\/8\/PPP1PPPP\/RNBQKBNR b KQkq d6 0 1\r\n\r\nMove history (most recent first):\r\n- White played d2d4\n\n\nProvide your next move in standard chess notation (e.g., 'e2e4'):"
+        }
+    ],
+    "temperature": 0,
+    "max_tokens": 2000
+}
+[06-Feb-2025 19:45:55 Europe/Berlin] Raw API Response: {
+    "id": "chatcmpl-Ay1Annymx59FmnxXnRgpXy6bK52Tf",
+    "object": "chat.completion",
+    "created": 1738867553,
+    "model": "gpt-3.5-turbo-0125",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\n    \"move\": \"d7d5\",\n    \"explanation\": \"Moving pawn from d7 to d5 to challenge the white pawn on d4\"\n}",
+                "refusal": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1083,
+        "completion_tokens": 36,
+        "total_tokens": 1119,
+        "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+        }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+}
+[06-Feb-2025 19:45:55 Europe/Berlin] AI Response - Raw Content: {
+    "move": "d7d5",
+    "explanation": "Moving pawn from d7 to d5 to challenge the white pawn on d4"
+}
+[06-Feb-2025 19:45:55 Europe/Berlin] Current FEN: rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d6 0 1
+[06-Feb-2025 19:45:55 Europe/Berlin] Model Used: gpt-3.5-turbo
+[06-Feb-2025 19:45:55 Europe/Berlin] AI Move - From: (1,3) To: (3,3)
+[06-Feb-2025 19:45:55 Europe/Berlin] 
+=== Processing FEN ===
+[06-Feb-2025 19:45:55 Europe/Berlin] Input: rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d6 0 1
+[06-Feb-2025 19:45:55 Europe/Berlin] 
+=== Board State ===
+[06-Feb-2025 19:45:55 Europe/Berlin] Row 0: Br Bn Bb Bq Bk Bb Bn Br
+Row 1: Bp Bp Bp Bp Bp Bp Bp Bp
+Row 2: - - - - - - - -
+Row 3: - - - - - - - -
+Row 4: - - - Wp - - - -
+Row 5: - - - - - - - -
+Row 6: Wp Wp Wp - Wp Wp Wp Wp
+Row 7: Wr Wn Wb Wq Wk Wb Wn Wr
+
+[06-Feb-2025 19:45:55 Europe/Berlin] Coordinates before validation: {"fromRow":1,"fromCol":3,"toRow":3,"toCol":3}
+[06-Feb-2025 19:45:55 Europe/Berlin] Game state before validation: {"board":[[{"type":"r","color":"black"},{"type":"n","color":"black"},{"type":"b","color":"black"},{"type":"q","color":"black"},{"type":"k","color":"black"},{"type":"b","color":"black"},{"type":"n","color":"black"},{"type":"r","color":"black"}],[{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"}],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,{"type":"p","color":"white"},null,null,null,null],[null,null,null,null,null,null,null,null],[{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},null,{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"}],[{"type":"r","color":"white"},{"type":"n","color":"white"},{"type":"b","color":"white"},{"type":"q","color":"white"},{"type":"k","color":"white"},{"type":"b","color":"white"},{"type":"n","color":"white"},{"type":"r","color":"white"}]],"turn":"black"}
+[06-Feb-2025 19:45:55 Europe/Berlin] 
+=== Move Validation
+[06-Feb-2025 19:45:55 Europe/Berlin] 📝 From: (1,3) To: (3,3) [black's turn]
+[06-Feb-2025 19:45:55 Europe/Berlin] 📝 Found black p
+[06-Feb-2025 19:45:55 Europe/Berlin] Pawn move validation:
+[06-Feb-2025 19:45:55 Europe/Berlin] Color: black, Direction: 1
+[06-Feb-2025 19:45:55 Europe/Berlin] From: (1,3), To: (3,3)
+[06-Feb-2025 19:45:55 Europe/Berlin] Start row: 1
+[06-Feb-2025 19:45:55 Europe/Berlin] Expected destination for two-square move: 3
+[06-Feb-2025 19:45:55 Europe/Berlin] Valid two square forward move from start
+[06-Feb-2025 19:45:55 Europe/Berlin] 
+=== Processing FEN ===
+[06-Feb-2025 19:45:55 Europe/Berlin] Input: rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d3 0 2
+[06-Feb-2025 19:45:55 Europe/Berlin] 
+=== Board State ===
+[06-Feb-2025 19:45:55 Europe/Berlin] Row 0: Br Bn Bb Bq Bk Bb Bn Br
+Row 1: Bp Bp Bp - Bp Bp Bp Bp
+Row 2: - - - - - - - -
+Row 3: - - - Bp - - - -
+Row 4: - - - Wp - - - -
+Row 5: - - - - - - - -
+Row 6: Wp Wp Wp - Wp Wp Wp Wp
+Row 7: Wr Wn Wb Wq Wk Wb Wn Wr
+
+[06-Feb-2025 19:45:55 Europe/Berlin] Making request to: https://api.openai.com/v1/chat/completions
+[06-Feb-2025 19:45:55 Europe/Berlin] Request to openai API:
+[06-Feb-2025 19:45:55 Europe/Berlin] Payload: {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are playing as WHITE. Your pieces are UPPERCASE (RNBQKBNRPPPPPPPP) and start at BOTTOM (rows 6-7). CRITICAL RULES FOR MOVE SELECTION:1) You can ONLY move WHITE pieces (UPPERCASE in FEN)2) White pieces are in rows 6-7 at start:   - Row 7: RNBQKBNR (back row)   - Row 6: PPPPPPPP (pawns)3) NEVER try to move black pieces (lowercase in FEN)4) Check the current FEN - only move pieces that exist in their current positions5) PIECE MOVEMENT RULES:   - PAWNS (P):     * White pawns can ONLY move UPWARD (decreasing row numbers)     * From row 6, can move one or two squares up     * After first move, can only move one square up     * Can only move diagonally up when capturing     * Can NEVER move backwards (increasing row numbers)   - KNIGHTS (N):     * Move in L-shape: 2 squares in one direction, then 1 square perpendicular     * Can jump over other pieces   - BISHOPS (B):     * Move any number of squares diagonally     * Cannot jump over other pieces   - ROOKS (R):     * Move any number of squares horizontally or vertically     * Cannot jump over other pieces   - QUEEN (Q):     * Move any number of squares in any direction (diagonal, horizontal, vertical)     * Cannot jump over other pieces - MUST have a clear path with no pieces between start and end position     * If a piece blocks the path, you CANNOT move through or over it   - KING (K):     * Move one square in any direction6) Must use standard chess notation format (e.g., 'e2e4', 'g1f3') for moves7) CRITICAL: Response must be ONLY a JSON object with NO additional text before or after8) Double-check your selected piece is WHITE before responding9) IMPORTANT: Your explanation must match the actual piece you're moving"
+        },
+        {
+            "role": "user",
+            "content": "You are a chess player playing as white. Given the current game state in FEN notation, board visualization, and move history,\r\ndetermine your next move. You MUST move a white piece that exists on the current board.\r\n\r\nCURRENT BOARD STATE (- means empty square):\r\nRow 0: Br Bn Bb Bq Bk Bb Bn Br \nRow 1: Bp Bp Bp - Bp Bp Bp Bp \nRow 2: - - - - - - - - \nRow 3: - - - Bp - - - - \nRow 4: - - - Wp - - - - \nRow 5: - - - - - - - - \nRow 6: Wp Wp Wp - Wp Wp Wp Wp \nRow 7: Wr Wn Wb Wq Wk Wb Wn Wr \n\nIMPORTANT:\r\n1. Look at the board visualization above - you can ONLY move pieces that actually exist on the board\r\n2. Before choosing a move, verify there is a piece at your chosen starting position (not a -)\r\n3. Review the move history to understand how the game reached this state\r\n4. CRITICAL - Before making a move:\r\n   a) First look at the FEN string and identify what piece type is actually at your chosen starting position\r\n   b) Double-check this piece type matches your intended move (e.g., if you find a bishop, don't try to move it like a knight)\r\n   c) Verify your move follows the movement rules for that specific piece type\r\n   d) Make sure your explanation uses standard chess notation (e.g., 'Moving pawn from e2 to e4')\r\n5. Remember piece movement rules:\r\n   - PAWNS: Can only move forward (up for white, down for black), never backwards\r\n   - KNIGHTS: Move in L-shape (2 squares + 1 perpendicular)\r\n   - BISHOPS: Move diagonally only\r\n   - ROOKS: Move horizontally\/vertically only\r\n   - QUEEN: Move in any direction\r\n   - KING: Move one square in any direction\r\n6. CRITICAL: Your response must be ONLY a JSON object with NO additional text before or after, containing:\r\n    - move: string in standard chess notation (e.g., 'e2e4', 'g1f3')\r\n    - explanation: brief explanation using chess notation (e.g., 'Moving piece from e2 to e4 for this reason')\r\n    DO NOT add any text outside the JSON object. The entire response must be valid JSON.\r\n\r\nExample response format:\r\n{\"move\":\"e2e4\",\"explanation\":\"Moving piece from x to y for this reason\"}\r\n\r\nCurrent position (FEN): rnbqkbnr\/ppp1pppp\/8\/3p4\/3P4\/8\/PPP1PPPP\/RNBQKBNR w KQkq d3 0 2\r\n\r\nMove history (most recent first):\r\n- White played d2d4\n- Black played d7d5\n\n\nProvide your next move in standard chess notation (e.g., 'e2e4'):"
+        }
+    ],
+    "temperature": 0,
+    "max_tokens": 2000
+}
+[06-Feb-2025 19:45:56 Europe/Berlin] Raw API Response: {
+    "id": "chatcmpl-Ay1Aom3zYjwVqFF0BEYFC3jcXuJkl",
+    "object": "chat.completion",
+    "created": 1738867554,
+    "model": "gpt-3.5-turbo-0125",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\n    \"move\": \"d4e5\",\n    \"explanation\": \"Moving pawn from d4 to e5 to capture the black pawn on e5\"\n}",
+                "refusal": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1115,
+        "completion_tokens": 36,
+        "total_tokens": 1151,
+        "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+        }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+}
+[06-Feb-2025 19:45:56 Europe/Berlin] AI Response - Raw Content: {
+    "move": "d4e5",
+    "explanation": "Moving pawn from d4 to e5 to capture the black pawn on e5"
+}
+[06-Feb-2025 19:45:56 Europe/Berlin] Current FEN: rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d3 0 2
+[06-Feb-2025 19:45:56 Europe/Berlin] Model Used: gpt-3.5-turbo
+[06-Feb-2025 19:45:56 Europe/Berlin] AI Move - From: (4,3) To: (3,4)
+[06-Feb-2025 19:45:56 Europe/Berlin] 
+=== Processing FEN ===
+[06-Feb-2025 19:45:56 Europe/Berlin] Input: rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d3 0 2
+[06-Feb-2025 19:45:56 Europe/Berlin] 
+=== Board State ===
+[06-Feb-2025 19:45:56 Europe/Berlin] Row 0: Br Bn Bb Bq Bk Bb Bn Br
+Row 1: Bp Bp Bp - Bp Bp Bp Bp
+Row 2: - - - - - - - -
+Row 3: - - - Bp - - - -
+Row 4: - - - Wp - - - -
+Row 5: - - - - - - - -
+Row 6: Wp Wp Wp - Wp Wp Wp Wp
+Row 7: Wr Wn Wb Wq Wk Wb Wn Wr
+
+[06-Feb-2025 19:45:56 Europe/Berlin] Coordinates before validation: {"fromRow":4,"fromCol":3,"toRow":3,"toCol":4}
+[06-Feb-2025 19:45:56 Europe/Berlin] Game state before validation: {"board":[[{"type":"r","color":"black"},{"type":"n","color":"black"},{"type":"b","color":"black"},{"type":"q","color":"black"},{"type":"k","color":"black"},{"type":"b","color":"black"},{"type":"n","color":"black"},{"type":"r","color":"black"}],[{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},null,{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"},{"type":"p","color":"black"}],[null,null,null,null,null,null,null,null],[null,null,null,{"type":"p","color":"black"},null,null,null,null],[null,null,null,{"type":"p","color":"white"},null,null,null,null],[null,null,null,null,null,null,null,null],[{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},null,{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"},{"type":"p","color":"white"}],[{"type":"r","color":"white"},{"type":"n","color":"white"},{"type":"b","color":"white"},{"type":"q","color":"white"},{"type":"k","color":"white"},{"type":"b","color":"white"},{"type":"n","color":"white"},{"type":"r","color":"white"}]],"turn":"white"}
+[06-Feb-2025 19:45:56 Europe/Berlin] 
+=== Move Validation
+[06-Feb-2025 19:45:56 Europe/Berlin] 📝 From: (4,3) To: (3,4) [white's turn]
+[06-Feb-2025 19:45:56 Europe/Berlin] 📝 Found white p
+[06-Feb-2025 19:45:56 Europe/Berlin] Pawn move validation:
+[06-Feb-2025 19:45:56 Europe/Berlin] Color: white, Direction: -1
+[06-Feb-2025 19:45:56 Europe/Berlin] From: (4,3), To: (3,4)
+[06-Feb-2025 19:45:56 Europe/Berlin] Start row: 6
+[06-Feb-2025 19:45:56 Europe/Berlin] Expected destination for two-square move: 2
+[06-Feb-2025 19:45:56 Europe/Berlin] Invalid pawn move: can only move diagonally when capturing
+[06-Feb-2025 19:45:56 Europe/Berlin] 
+=== Retrying with feedback ===
+[06-Feb-2025 19:45:56 Europe/Berlin] Invalid move feedback: You are a chess player playing as white. Given the current game state in FEN notation, board visualization, and move history,
+determine your next move. You MUST move a white piece that exists on the current board.
+
+CURRENT BOARD STATE (- means empty square):
+Row 0: Br Bn Bb Bq Bk Bb Bn Br 
+Row 1: Bp Bp Bp - Bp Bp Bp Bp 
+Row 2: - - - - - - - - 
+Row 3: - - - Bp - - - - 
+Row 4: - - - Wp - - - - 
+Row 5: - - - - - - - - 
+Row 6: Wp Wp Wp - Wp Wp Wp Wp 
+Row 7: Wr Wn Wb Wq Wk Wb Wn Wr 
+
+IMPORTANT:
+1. Look at the board visualization above - you can ONLY move pieces that actually exist on the board
+2. Before choosing a move, verify there is a piece at your chosen starting position (not a -)
+3. Review the move history to understand how the game reached this state
+4. CRITICAL - Before making a move:
+   a) First look at the FEN string and identify what piece type is actually at your chosen starting position
+   b) Double-check this piece type matches your intended move (e.g., if you find a bishop, don't try to move it like a knight)
+   c) Verify your move follows the movement rules for that specific piece type
+   d) Make sure your explanation uses standard chess notation (e.g., 'Moving pawn from e2 to e4')
+5. Remember piece movement rules:
+   - PAWNS: Can only move forward (up for white, down for black), never backwards
+   - KNIGHTS: Move in L-shape (2 squares + 1 perpendicular)
+   - BISHOPS: Move diagonally only
+   - ROOKS: Move horizontally/vertically only
+   - QUEEN: Move in any direction
+   - KING: Move one square in any direction
+6. CRITICAL: Your response must be ONLY a JSON object with NO additional text before or after, containing:
+    - move: string in standard chess notation (e.g., 'e2e4', 'g1f3')
+    - explanation: brief explanation using chess notation (e.g., 'Moving piece from e2 to e4 for this reason')
+    DO NOT add any text outside the JSON object. The entire response must be valid JSON.
+
+Example response format:
+{"move":"e2e4","explanation":"Moving piece from x to y for this reason"}
+
+Current position (FEN): rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d3 0 2
+
+Move history (most recent first):
+- White played d2d4
+- Black played d7d5
+
+
+Provide your next move in standard chess notation (e.g., 'e2e4'):
+
+Your previous move d4e5 was invalid: Invalid pawn move: can only move diagonally when capturing
+
+
+
+Please try again with a valid move. Your response must be ONLY a JSON object with NO additional text before or after, containing:
+        - move: string in standard chess notation (e.g., 'e2e4', 'g1f3')
+        - explanation: brief explanation using chess notation (e.g., 'Moving piece from e2 to e4 for this reason')
+        DO NOT add any text outside the JSON object. The entire response must be valid JSON.
+
+        Example response format:
+        {"move":"e2e4","explanation":"Moving pawn from x to y to control center"}
+[06-Feb-2025 19:45:57 Europe/Berlin] Retry API Response: {
+    "id": "chatcmpl-Ay1Apt0BfbU42awKuaXJFU7jj6Mpd",
+    "object": "chat.completion",
+    "created": 1738867555,
+    "model": "gpt-3.5-turbo-0125",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\n    \"move\": \"d2d3\",\n    \"explanation\": \"Moving pawn from d2 to d3 to support the pawn on d4\"\n}",
+                "refusal": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1261,
+        "completion_tokens": 35,
+        "total_tokens": 1296,
+        "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+        }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+}
+[06-Feb-2025 19:45:57 Europe/Berlin] 
+=== Move Validation
+[06-Feb-2025 19:45:57 Europe/Berlin] 📝 From: (6,3) To: (5,3) [white's turn]
+[06-Feb-2025 19:45:57 Europe/Berlin] ❌ No piece found at source position

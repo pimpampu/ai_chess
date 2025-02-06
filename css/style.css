@@ -1,0 +1,270 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.player {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 300px;
+    position: relative;
+}
+
+.player::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+
+.player:first-child::after {
+    bottom: -15px;
+    border-top: 15px solid white;
+}
+
+.player:last-child::after {
+    top: -15px;
+    border-bottom: 15px solid white;
+}
+
+.player.active {
+    border: 3px solid #4CAF50;
+}
+
+.player h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.position-indicator {
+    font-size: 0.8em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f0f0f0;
+}
+
+.ai-model-select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.mistake-counter {
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.mistake-counter span {
+    font-weight: bold;
+    color: #f44336;
+}
+
+.game-controls {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#start-game {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#pause-game {
+    background-color: #ff9800;
+    color: white;
+}
+
+#reset-game {
+    background-color: #f44336;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.ai-model-select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.game-board-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.captured-pieces {
+    width: 80px;
+    min-height: 560px;
+    background-color: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.captured-piece {
+    font-size: 30px;
+    line-height: 1;
+    margin: 2px 0;
+}
+
+.chessboard {
+    width: 560px;
+    height: 560px;
+    border: 2px solid #333;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    position: relative;
+}
+
+.square {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.white {
+    background-color: #f0d9b5;
+}
+
+.black {
+    background-color: #b58863;
+}
+
+.selected {
+    background-color: #7b61ff;
+}
+
+.valid-move {
+    position: relative;
+}
+
+.valid-move::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 255, 0, 0.3);
+    border-radius: 50%;
+}
+
+.game-log {
+    margin-top: 20px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#log-content {
+    height: 200px;
+    overflow-y: auto;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.log-entry {
+    margin: 8px 0;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+    border-radius: 4px;
+}
+
+.move-explanation {
+    margin-top: 4px;
+    padding-left: 15px;
+    border-left: 3px solid #4CAF50;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.piece {
+    user-select: none;
+    font-size: 40px;
+    pointer-events: none;
+}
+
+.piece.animating {
+    position: absolute;
+    transition: transform 0.3s ease;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

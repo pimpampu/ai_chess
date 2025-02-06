@@ -1,0 +1,9 @@
+{
+    "name": "ai-chess/root",
+    "description": "AI Chess Game",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "license": "MIT"
+}
